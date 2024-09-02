@@ -1,0 +1,33 @@
+service: audio-merge
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: eu-central-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+      Resource: "*"
+
+functions:
+  mergeAudio:
+    handler: handler.lambda_handler
+    layers:
+      - arn:aws:lambda:eu-central-1:208060995276:layer:ffmpeg:1  # Prebuilt FFmpeg layer
+    events:
+      - http:
+          path: merge
+          method: post
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true  # Use Docker to install Python packages
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
