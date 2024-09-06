@@ -6,9 +6,14 @@ provider:
   region: eu-central-1
   iamRoleStatements:
     - Effect: "Allow"
-      Action:
-        - "s3:GetObject"
-      Resource: "*"
+        Action:
+          - "s3:GetObject"
+          - "s3:PutObject"
+          - "s3:ListBucket"
+        Resource:
+          - "arn:aws:s3:::matedub-api-export-staging/*"
+          - "arn:aws:s3:::matesub-video-optimized/*"
+          - "arn:aws:s3:::matedub-api-cache-files-staging/*"
 
 functions:
   mergeAudio:
