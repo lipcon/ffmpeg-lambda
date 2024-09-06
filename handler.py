@@ -14,7 +14,7 @@ s3 = boto3.client('s3')
 
 PROJECT_BUCKET = "matesub-video-optimized"
 EXPORT_BUCKET = "matedub-api-export-staging"
-REGIONS_FILES_BUCKET = "matedub-api-cache-files-staging "
+REGIONS_FILES_BUCKET = "matedub-api-cache-files-staging"
 
 
 def download_audio(url):
@@ -23,7 +23,7 @@ def download_audio(url):
 
 
 def lambda_handler(event, context):
-    message_data = json.loads(event)
+    message_data = event
 
     project_id = message_data['project_id']
     locale = message_data['locale']
@@ -123,6 +123,5 @@ def upload_from_buffer(buffer, s3_key):
     client.Bucket(EXPORT_BUCKET).upload_fileobj(
         buffer,
         s3_key,
-        Config=boto3.s3.transfer.TransferConfig(use_threads=False),
-        ExtraArgs={"ACL": "public-read"}
+        Config=boto3.s3.transfer.TransferConfig(use_threads=False)
     )

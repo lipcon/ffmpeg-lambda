@@ -18,6 +18,7 @@ provider:
 functions:
   mergeAudio:
     handler: handler.lambda_handler
+    timeout: 600
     layers:
       - arn:aws:lambda:eu-central-1:208060995276:layer:ffmpeg:1  # Prebuilt FFmpeg layer
     events:
