@@ -6,9 +6,12 @@ import io
 import requests
 from urllib.parse import urlparse
 import re
+import os
+from pydub.utils import which
 
-# Specify the path to the ffmpeg binary
-AudioSegment.converter = "/opt/bin/ffmpeg"
+AudioSegment.converter = which("/opt/ffmpeg")
+AudioSegment.ffprobe = which("/opt/ffprobe")
+os.environ["PATH"] = "/opt:" + os.environ["PATH"]
 
 s3 = boto3.client('s3')
 

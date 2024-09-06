@@ -3,7 +3,7 @@ service: audio-merge
 provider:
   name: aws
   runtime: python3.9
-  region: eu-central-1
+  region: eu-west-1
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -20,7 +20,7 @@ functions:
     handler: handler.lambda_handler
     timeout: 600
     layers:
-      - arn:aws:lambda:eu-central-1:208060995276:layer:ffmpeg:1  # Prebuilt FFmpeg layer
+      - arn:aws:lambda:eu-west-1:208060995276:layer:matesubFfmpegLayer:16
     events:
       - http:
           path: merge
